@@ -54,9 +54,69 @@ public class DoublyLinkedList
         tail = temp;
     }
 
+    //With my PartitionList method, I am passing through the doubly linked list and splitting it on the partition value. I will then go through the original list and figure out if the values belong in the less than or greater than chains. After it loops through and does this for every value, I will have two lists that I have to connect back together. Because it is walking through and visiting every node, the time complexity would be O(n).
+
     public void PartitionList(int x)
     {
+        if (head == null)
+        {
+            return;
+        }
         
+        Node lessThan = new(0);
+        Node greaterThan = new(0);
+
+        Node lessEnd = lessThan;
+        Node greaterEnd = greaterThan;
+
+        Node current = head;
+
+        while (current != null)
+        {
+            Node next = current.next;
+
+            if (current.value < x)
+            {
+                lessEnd.next = current;
+                current.prev = lessEnd;
+                lessEnd = current;
+            }
+            else
+            {
+                greaterEnd.next = current;
+                current.prev = greaterEnd;
+                greaterEnd = current;
+            }
+            current.next = null;
+            current = next;
+        }
+
+        if (lessThan.next != null && greaterThan.next != null)
+        {
+            lessEnd.next = greaterThan.next;
+            greaterThan.next.prev = lessEnd;
+        }
+
+        if (lessThan.next != null)
+        {
+            head = lessThan.next;
+        }
+        else
+        {
+            head = greaterThan.next;
+        }
+
+        if (greaterThan.next != null)
+        {
+            tail = greaterEnd;
+        }
+        else
+        {
+            tail = lessEnd;
+        }
+
+        head.prev = null;
+        tail.next = null;
     }
 
     public void PrintList()
