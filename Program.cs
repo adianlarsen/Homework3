@@ -33,6 +33,16 @@ public class DoublyLinkedList
         length = 1;
     }
 
+    public void Reverse()
+    {
+        
+    }
+
+    public void PartitionList(int x)
+    {
+        
+    }
+    
     public void PrintList()
     {
         Node temp = head;
