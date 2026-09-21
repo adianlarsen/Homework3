@@ -33,16 +33,32 @@ public class DoublyLinkedList
         length = 1;
     }
 
+    //This method is first setting the current node as the head and defines a temporary node that we can use.
+    //The method then sets the previous as a temporary, moves the next to the previous positon, and then sets the next postion as the temporary previous. Then the current is set as its previous node. This is done until the current node is null. Then the head and tail are swapped.
+    //The time complexity is O(n).
     public void Reverse()
     {
-        
+        Node current = head;
+        Node temp = null;
+
+        while (current != null)
+        {
+            temp = current.prev;
+            current.prev = current.next;
+            current.next = temp;
+            current = current.prev;
+        }
+
+        temp = head;
+        head = tail;
+        tail = temp;
     }
 
     public void PartitionList(int x)
     {
         
     }
-    
+
     public void PrintList()
     {
         Node temp = head;
@@ -267,24 +283,7 @@ public class DoublyLinkedList
     // current.prev temporarily holds the ORIGINAL next node, so
     // "current = current.prev" still walks forward through the list.
     // ========================================================
-    public void Reverse()
-    {
-        if (length == 0 || length == 1) return;
 
-        Node current = head;
-        Node temp;
-        while (current != null)
-        {
-            temp = current.prev;
-            current.prev = current.next;
-            current.next = temp;
-            current = current.prev;
-        }
-
-        temp = head;
-        head = tail;
-        tail = temp;
-    }
 }
 
 // ============================================================
